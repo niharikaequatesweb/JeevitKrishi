@@ -16,8 +16,10 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Home', style: TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
-          IconButton(icon: const Icon(Icons.notifications), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.shopping_cart), onPressed: () {}),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.5.w),
+            child: Image.asset("assets/images/whatsapp.png", height: 10.h),
+          ),
         ],
       ),
       drawer: const Drawer(backgroundColor: Colors.white),
