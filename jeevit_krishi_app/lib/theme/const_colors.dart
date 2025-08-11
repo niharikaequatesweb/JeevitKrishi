@@ -6,4 +6,5 @@ class ConstColors {
   static const blackColor = Color(0xff252525);
   static const whiteColor = Color(0xffffffff);
   static const greyColor = Color(0xff7c7c7c);
+  static const bgColor = Color(0xfffff5e0);
 }

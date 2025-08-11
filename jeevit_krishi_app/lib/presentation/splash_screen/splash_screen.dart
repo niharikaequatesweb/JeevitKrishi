@@ -28,34 +28,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
     return Scaffold(
-      backgroundColor: ConstColors.darkGreen,
-      body: Stack(
-        children: [
-          //! app image
-          Center(
-            child: Image.asset(
-              "assets/images/logo.png",
-              width: mq.size.width * 0.25,
-            ),
-          ),
-          //! app name
-          Positioned(
-            bottom: mq.size.height * .15,
-            width: mq.size.width,
-            child: Text(
-              textAlign: TextAlign.center,
-              "KisaanSeva",
-              style: TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                letterSpacing: 1,
-              ),
-            ),
-          ),
-        ],
+      backgroundColor: ConstColors.bgColor,
+      body: Center(
+        child: Image.asset(
+          "assets/images/splash_screen.png",
+          width: double.infinity,
+        ),
       ),
     );
   }
