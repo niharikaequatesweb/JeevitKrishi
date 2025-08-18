@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:jeevit_krishi_app/presentation/soil_testing_screen.dart';
+import 'package:jeevit_krishi_app/presentation/water_testing_scree.dart';
 import 'package:jeevit_krishi_app/theme/const_colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import '../../machinery_screen.dart';
+import '../../tubewell_screen.dart';
 import '../widgets/agri_service_widget.dart';
 import '../widgets/farm_control_panel_widget.dart';
 import '../widgets/weather_widget.dart';
@@ -40,22 +44,65 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    AgriServiceWidget(
-                      icon: Icons.science,
-                      label: 'Soil Testing',
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SoilTestingScreen(),
+                          ),
+                        );
+                      },
+                      child: AgriServiceWidget(
+                        icon: Icons.science,
+                        label: 'Soil Testing',
+                      ),
                     ),
-                    AgriServiceWidget(
-                      icon: Icons.agriculture,
-                      label: 'Machinery',
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MachineryScreen(),
+                          ),
+                        );
+                      },
+                      child: AgriServiceWidget(
+                        icon: Icons.agriculture,
+                        label: 'Machinery',
+                      ),
                     ),
-                    AgriServiceWidget(
-                      icon: Icons.water_drop,
-                      label: 'Water Testing',
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WaterTestingScreen(),
+                          ),
+                        );
+                      },
+                      child: AgriServiceWidget(
+                        icon: Icons.water_drop,
+                        label: 'Water Testing',
+                      ),
                     ),
-                    AgriServiceWidget(icon: Icons.build, label: 'Tubewell'),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TubewellScreen(),
+                          ),
+                        );
+                      },
+                      child: AgriServiceWidget(
+                        icon: Icons.build,
+                        label: 'Tubewell',
+                      ),
+                    ),
                   ],
                 ),
               ],

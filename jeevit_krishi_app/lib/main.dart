@@ -1,39 +1,67 @@
+import 'l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'presentation/settings_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'presentation/language_screen/screens/language_selection_screen.dart';
 import 'presentation/splash_screen/splash_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  //! Set preferred orientations
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-
-  runApp(const MyApp());
+  final prefs = await SharedPreferences.getInstance();
+  String? localeCode = prefs.getString('localeCode');
+  runApp(MyApp(localeCode: localeCode));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  final String? localeCode;
+  const MyApp({super.key, this.localeCode});
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale? _locale;
+  bool _isLanguageSelected = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.localeCode != null) {
+      _locale = Locale(widget.localeCode!);
+      _isLanguageSelected = true;
+    }
+  }
+
+  void setLocale(Locale locale) async {
+    setState(() {
+      _locale = locale;
+      _isLanguageSelected = true;
+    });
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('localeCode', locale.languageCode);
+  }
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveSizer(
-      builder: (context, orientation, deviceType) {
+      builder: (context, orientation, screenType) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'JeevitKrishi',
+          locale: _locale,
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
           theme: ThemeData(
-            fontFamily: 'Poppins',
-            scaffoldBackgroundColor: Colors.white,
-            appBarTheme: const AppBarTheme(
-              color: Colors.white,
-              surfaceTintColor: Colors.white,
-            ),
+            primarySwatch: Colors.green,
+            scaffoldBackgroundColor: Colors.green[50],
           ),
-          home: SplashScreen(),
+          home: _isLanguageSelected
+              ? SplashScreen()
+              : LanguageSelectionScreen(onLocaleSelected: setLocale),
+          routes: {
+            '/settings': (context) =>
+                SettingsScreen(onLocaleChanged: setLocale),
+          },
         );
       },
     );
