@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jeevit_krishi_app/theme/const_colors.dart';
-
 import '../home_screen/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
